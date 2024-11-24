@@ -44,11 +44,11 @@ export default function Home() {
           YouTube Downloader
         </h1>
         <p className="text-gray-600 mb-4">
-          Collez l'URL d'une vidéo YouTube et téléchargez-la en un clic.
+          Collez l&apos;URL d&apos;une vidéo YouTube et téléchargez-la en un clic.
         </p>
         <input
           type="text"
-          className="w-full p-3 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="w-full p-3 border border-gray-700 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
           placeholder="Entrez l'URL YouTube"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
