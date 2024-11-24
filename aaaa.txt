@@ -1,0 +1,31 @@
+#flask
+
+from flask import Flask, request, jsonify, send_file
+import yt_dlp
+import os 
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app) 
+@app.route('/download', methods=['POST'])
+def download_video():
+    url = request.json.get('url')
+    output_path = "downloaded_video.mp4.mkv"
+    try:
+        ydl_opts = {
+            'format': 'bestvideo+bestaudio/best',
+            'outtmpl': "downloaded_video.mp4",
+        }
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([url])
+
+        # Vérifiez si le fichier existe avant de l'envoyer
+        if os.path.exists(output_path):
+            return send_file(output_path, as_attachment=True)
+        else:
+            return jsonify({"message": "File not found"}), 404
+    except Exception as e:
+        return jsonify({"message": "Error", "error": str(e)}), 400
+
+if __name__ == '__main__':
+    app.run(debug=True)
