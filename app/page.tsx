@@ -30,8 +30,13 @@ export default function Home() {
         const errorData = await response.json();
         setMessage(`Erreur : ${errorData.message}`);
       }
-    } catch (error) {
-      setMessage(`Erreur : ${error.message}`);
+    } catch (error: unknown) {
+      // Vérification si 'error' est bien une instance d'Error
+      if (error instanceof Error) {
+        setMessage(`Erreur : ${error.message}`);
+      } else {
+        setMessage("Une erreur inconnue s'est produite.");
+      }
     } finally {
       setLoading(false);
     }
